@@ -23,6 +23,16 @@ public class SaludoService {
       3) Agregar prefijo "Estudiante".
     */
     String normalizarNombre(String nombre) {
-        return nombre == null ? "Mundo" : nombre.trim();
+    	if(nombre == null) {
+    		return "Mundo";
     }
-}
+    	nombre = nombre.trim();
+    	if (!nombre.matches("a-zA-Z")) {
+    		return "El nombre solo debe contener letras no numeros";
+    	}
+    	
+    	String parte1 = String.valueOf(nombre.charAt(0)).toUpperCase();
+    	String parte2 = nombre.substring(1).toLowerCase();
+    	
+    	return "Estudiante "+ parte1 + parte2;
+}}
