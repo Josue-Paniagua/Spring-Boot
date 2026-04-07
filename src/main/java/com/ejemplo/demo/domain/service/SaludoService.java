@@ -30,7 +30,7 @@ public class SaludoService {
     	if(nombre.isEmpty()) {
     		throw new IllegalArgumentException("EL nombre no puede ir vacio");
     	}
-    	if (!nombre.matches("[a-zA-Z]+")) {
+    	if (!nombre.matches("[a-zA-Z ]+")) {
     		throw new IllegalArgumentException( "El nombre solo debe contener letras no numeros");
     	}
     	
