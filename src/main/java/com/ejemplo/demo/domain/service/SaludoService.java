@@ -27,8 +27,11 @@ public class SaludoService {
     		return "Mundo";
     }
     	nombre = nombre.trim();
-    	if (!nombre.matches("a-zA-Z")) {
-    		return "El nombre solo debe contener letras no numeros";
+    	if(nombre.isEmpty()) {
+    		throw new IllegalArgumentException("EL nombre no puede ir vacio");
+    	}
+    	if (!nombre.matches("[a-zA-Z]+")) {
+    		throw new IllegalArgumentException( "El nombre solo debe contener letras no numeros");
     	}
     	
     	String parte1 = String.valueOf(nombre.charAt(0)).toUpperCase();
