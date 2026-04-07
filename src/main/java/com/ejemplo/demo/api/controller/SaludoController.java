@@ -66,7 +66,7 @@ public class SaludoController {
 
     1) Descomenta imports:
        - com.ejemplo.demo.api.dto.SaludoRequest
-       - jakarta.validation.Valid
+       - jakarta.validation.Validdddd
        - org.springframework.web.bind.annotation.PostMapping
        - org.springframework.web.bind.annotation.RequestBody
 
