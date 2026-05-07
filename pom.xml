@@ -21,6 +21,7 @@
         <java.version>17</java.version>
     </properties>
 
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -50,6 +51,11 @@
   <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
   <version>2.6.0</version>
 </dependency>
+<dependency>
+    <groupId>org.openapitools</groupId>
+    <artifactId>jackson-databind-nullable</artifactId>
+    <version>0.2.6</version>
+</dependency>
     </dependencies>
 
     <build>
@@ -57,7 +63,32 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                
             </plugin>
+            <plugin>
+            <groupId>org.openapitools</groupId>
+            <artifactId>openapi-generator-maven-plugin</artifactId>
+            <version>7.4.0</version>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>generate</goal>
+                    </goals>
+                    <configuration>
+                        <inputSpec>${project.basedir}/src/main/resources/openapi/openapi.yaml</inputSpec>
+                        <generatorName>spring</generatorName>
+                        <apiPackage>com.ejemplo.demo.api.generated</apiPackage>
+                        <modelPackage>com.ejemplo.demo.api.generated.model</modelPackage>
+                        <configOptions>
+                            <interfaceOnly>true</interfaceOnly>
+                            <useSpringBoot3>true</useSpringBoot3>
+                            <useTags>true</useTags>
+                        </configOptions>
+                    </configuration>
+                </execution>
+            </executions>
+                    </plugin>
+
         </plugins>
     </build>
 </project>

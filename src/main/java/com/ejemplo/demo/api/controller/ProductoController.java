@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ejemplo.demo.api.generated.ProductosApi;
 import com.ejemplo.demo.domain.entity.Producto;
 import com.ejemplo.demo.domain.service.ProductoService;
 
 @RestController
-@RequestMapping("/api/v1/productos")
 
-public class ProductoController {
+public class ProductoController implements ProductosApi{
 	private final ProductoService productoService;
 	
 	public ProductoController (ProductoService productoService) {

@@ -1,0 +1,354 @@
+openapi: 3.0.3
+info:
+  title: Spring Boot API Demo
+  version: 0.0.1-SNAPSHOT
+
+paths:
+  /api/v1:
+    get:
+      tags:
+        - workshop
+      operationId: getWorkshopHealth
+      summary: Estado del API
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  estado:
+                    type: string
+                  mensaje:
+                    type: string
+
+  /api/v1/saludos:
+    get:
+      tags:
+        - workshop
+      operationId: saludarPorGet
+      summary: Saludo por GET
+      parameters:
+        - name: nombre
+          in: query
+          required: false
+          schema:
+            type: string
+            default: Mundo
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SaludoResponse'
+    post:
+      tags:
+        - workshop
+      operationId: saludarPorPost
+      summary: Saludo por POST
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SaludoRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SaludoResponse'
+
+  /api/v1/simulaciones/prestamo:
+    post:
+      tags:
+        - simulaciones
+      operationId: simularPrestamo
+      summary: Simular préstamo
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PrestamoRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrestamoResponse'
+
+  /api/v1/categorias:
+    get:
+      tags:
+        - categorias
+      operationId: listarCategorias
+      summary: Listar categorias
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CategoriaResponse'
+    post:
+      tags:
+        - categorias
+      operationId: crearCategoria
+      summary: Crear categoria
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CategoriaRequest'
+      responses:
+        '201':
+          description: Creado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoriaResponse'
+
+  /api/v1/categorias/{id}:
+    get:
+      tags:
+        - categorias
+      operationId: obtenerCategoria
+      summary: Obtener categoria por id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoriaResponse'
+        '404':
+          description: No encontrado
+    put:
+      tags:
+        - categorias
+      operationId: actualizarCategoria
+      summary: Actualizar categoria
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CategoriaRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoriaResponse'
+    delete:
+      tags:
+        - categorias
+      operationId: eliminarCategoria
+      summary: Eliminar categoria
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: Sin contenido
+
+  /api/v1/productos:
+    get:
+      tags:
+        - productos
+      operationId: listarProductos
+      summary: Listar productos
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductoResponse'
+    post:
+      tags:
+        - productos
+      operationId: crearProducto
+      summary: Crear producto
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductoRequest'
+      responses:
+        '201':
+          description: Creado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductoResponse'
+
+  /api/v1/productos/{id}:
+    get:
+      tags:
+        - productos
+      operationId: obtenerProducto
+      summary: Obtener producto por id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductoResponse'
+        '404':
+          description: No encontrado
+    put:
+      tags:
+        - productos
+      operationId: actualizarProducto
+      summary: Actualizar producto
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductoRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductoResponse'
+    delete:
+      tags:
+        - productos
+      operationId: eliminarProducto
+      summary: Eliminar producto
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: Sin contenido
+
+components:
+  schemas:
+    SaludoRequest:
+      type: object
+      properties:
+        nombre:
+          type: string
+
+    SaludoResponse:
+      type: object
+      properties:
+        mensaje:
+          type: string
+
+    PrestamoRequest:
+      type: object
+      properties:
+        monto:
+          type: number
+        tasaAnual:
+          type: number
+        plazoMeses:
+          type: integer
+
+    PrestamoResponse:
+      type: object
+      properties:
+        totalAPagar:
+          type: number
+        interes:
+          type: number
+
+    CategoriaRequest:
+      type: object
+      required:
+        - nombre
+      properties:
+        nombre:
+          type: string
+          maxLength: 100
+        descripcion:
+          type: string
+          maxLength: 255
+
+    CategoriaResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nombre:
+          type: string
+        descripcion:
+          type: string
+
+    ProductoRequest:
+      type: object
+      required:
+        - nombre
+        - precio
+      properties:
+        nombre:
+          type: string
+        precio:
+          type: number
+
+    ProductoResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nombre:
+          type: string
+        precio:
+          type: number

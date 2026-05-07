@@ -234,4 +234,5 @@ Donde:
 - [ ] Swagger/OpenAPI habilitado y accesible
 - [ ] Endpoint nuevo implementado
 - [ ] Tests del endpoint nuevo en verde
-- [ ] Pruebas pasando (`mvn test`)
+- [ ] Pruebas pasando (`mvn test`) 
+

@@ -69,6 +69,12 @@ public class Categoria {
 		this.productos = productos;
 
 	}
-	
+	public String getDescripcion() {
+	    return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+	    this.descripcion = descripcion;
+	}
 	}
 
