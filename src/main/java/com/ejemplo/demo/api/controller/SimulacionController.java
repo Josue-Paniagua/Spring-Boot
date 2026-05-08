@@ -10,24 +10,29 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ejemplo.demo.api.dto.PrestamoRequest;
 import com.ejemplo.demo.api.dto.PrestamoResponse;
+import com.ejemplo.demo.api.generated.SimulacionesApi;
 import com.ejemplo.demo.domain.service.PrestamoService;
 
 import jakarta.validation.Valid;
 
 
 @RestController
-@RequestMapping("/api/v1/simulaciones")
 
-public class SimulacionController {
+public class SimulacionController implements SimulacionesApi {
 	
 	 private final PrestamoService prestamoService;
 	 
 
 	    public SimulacionController(PrestamoService prestamoService) {
 	        this.prestamoService = prestamoService;}
-	
-	   @PostMapping("/prestamo")
-	    public ResponseEntity<PrestamoResponse> simular(@Valid @RequestBody PrestamoRequest request) {
+
+	    @Override
+	    public ResponseEntity simularPrestamo(com.ejemplo.demo.api.generated.model.PrestamoRequest prestamoRequest) {
+	    	PrestamoRequest request = new PrestamoRequest(
+	    			prestamoRequest.getMonto(),
+	    			prestamoRequest.getTasaAnual(),
+	    			prestamoRequest.getPlazoMeses());
+	    			
 		   return ResponseEntity.ok(prestamoService.calcular(request));
 	   }
 	  

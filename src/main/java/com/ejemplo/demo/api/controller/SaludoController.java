@@ -1,27 +1,21 @@
 package com.ejemplo.demo.api.controller;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ejemplo.demo.api.dto.SaludoRequest;
-import com.ejemplo.demo.api.dto.SaludoResponse;
+
+import com.ejemplo.demo.api.generated.WorkshopApi;
 import com.ejemplo.demo.domain.service.SaludoService;
 
-import jakarta.validation.Valid;
 
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/v1")
-public class SaludoController {
+public class SaludoController implements WorkshopApi {
 
-    @GetMapping
-    public ResponseEntity<Map<String, String>> health() {
+@Override
+	public ResponseEntity getWorkshopHealth() {
         return ResponseEntity.ok(Map.of(
                 "estado", "ok",
                 "mensaje", "Workshop Spring Boot activo"
@@ -51,11 +45,11 @@ public class SaludoController {
 //    3) Descomenta este endpoint:
 //    
 
-    @GetMapping("/saludos")
-    public ResponseEntity<SaludoResponse> saludar(
-            @RequestParam(defaultValue = "Mundo") String nombre
-    ) {
-        return ResponseEntity.ok(saludoService.crearSaludo(nombre));
+
+    @Override
+    public ResponseEntity saludarPorGet(String nombre) {
+        String nombreFinal = nombre != null ? nombre : "Mundo";
+        return ResponseEntity.ok(saludoService.crearSaludo(nombreFinal));
     }
     
 
@@ -71,10 +65,10 @@ public class SaludoController {
        - org.springframework.web.bind.annotation.RequestBody
 
     2) Descomenta este endpoint:
-*/
-    @PostMapping("/saludos")
-    public ResponseEntity<SaludoResponse> saludarPost(@Valid @RequestBody SaludoRequest request) {
-        return ResponseEntity.ok(saludoService.crearSaludo(request.nombre()));
-    }
+*/    
     
+    @Override
+    public ResponseEntity saludarPorPost(com.ejemplo.demo.api.generated.model.SaludoRequest saludoRequest) {
+        return ResponseEntity.ok(saludoService.crearSaludo(saludoRequest.getNombre()));
+    }
 }
